@@ -5,7 +5,7 @@
 FROM ubuntu
 MAINTAINER Sjoerd <sdevries@gmail.com>
 
-# Add source
+# Adding sources
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 # And get up to date
 RUN apt-get update
@@ -24,11 +24,16 @@ ADD .docker/supervisor.conf /etc/supervisor.conf
 # Run our service
 CMD ["/usr/local/bin/supervisord", "-c", "/etc/supervisor.conf", "-n"]
 
-
-###  Persistence  ###
-#
-# Run docker with -v /mnt/synoVideos:/mnt/synoVideos to have
-# our shows mounted inside the container
-#
+# No idea 
 VOLUME ["/mnt/synoVideos"]
 
+
+## Building ##
+# sudo docker -H=tcp://localhost build -t Deluge .
+
+## Running ##
+# sudo docker -H=tcp://localhost run -d -v /mnt/synoVideos:/mnt/synoVideos -p 80:8112
+
+### TODO ###
+# git clone a known config
+# check for more needed ports (sharing anyone)
